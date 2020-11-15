@@ -1,6 +1,13 @@
+# This workflow will build a Java project with Gradle
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-gradle
+
 name: Mod Build
 
-on: [push]
+on:
+  push:
+    branches: [ 1.12.x ]
+  pull_request:
+    branches: [ 1.12.x ]
 
 jobs:
   build:
@@ -8,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - name: Set up JDK 1.8
       uses: actions/setup-java@v1
       with:
@@ -31,4 +38,3 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: ./gradlew -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }} -Dsonar.organization=p3pp3rf1y-github sonarqube
-      
